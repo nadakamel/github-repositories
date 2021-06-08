@@ -16,3 +16,7 @@ Using this [Endpoint](https://api.github.com/repositories) to retrieve public Gi
    - Number of commits
    - Number of tags
    - Number of contributors (showing their name and avatar)
+
+## Architecture
+
+Model-View-ViewModel (MVVM) architecture + Routers
