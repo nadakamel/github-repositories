@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - GithubRepoElement
 struct GithubRepoElement: Codable {
-    let id: Int?
+    let id: Int
     let nodeID, name, fullName: String?
     let githubRepoPrivate: Bool?
     let owner: Owner?
@@ -89,7 +89,7 @@ struct GithubRepoElement: Codable {
 
 extension GithubRepoElement {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(GithubRepoElement.self, from: data)
+        self = try JSONDecoder().decode(GithubRepoElement.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -104,7 +104,7 @@ extension GithubRepoElement {
     }
 
     func with(
-        id: Int?? = nil,
+        id: Int,
         nodeID: String?? = nil,
         name: String?? = nil,
         fullName: String?? = nil,
@@ -152,7 +152,7 @@ extension GithubRepoElement {
         deploymentsURL: String?? = nil
     ) -> GithubRepoElement {
         return GithubRepoElement(
-            id: id ?? self.id,
+            id: id,
             nodeID: nodeID ?? self.nodeID,
             name: name ?? self.name,
             fullName: fullName ?? self.fullName,
@@ -202,7 +202,7 @@ extension GithubRepoElement {
     }
 
     func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
+        return try JSONEncoder().encode(self)
     }
 
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {

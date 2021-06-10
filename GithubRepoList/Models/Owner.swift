@@ -10,7 +10,7 @@ import Foundation
 // MARK: - Owner
 struct Owner: Codable {
     let login: String?
-    let id: Int?
+    let id: Int
     let nodeID: String?
     let avatarURL: String?
     let gravatarID: String?
@@ -47,7 +47,7 @@ struct Owner: Codable {
 
 extension Owner {
     init(data: Data) throws {
-        self = try newJSONDecoder().decode(Owner.self, from: data)
+        self = try JSONDecoder().decode(Owner.self, from: data)
     }
 
     init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -63,7 +63,7 @@ extension Owner {
 
     func with(
         login: String?? = nil,
-        id: Int?? = nil,
+        id: Int,
         nodeID: String?? = nil,
         avatarURL: String?? = nil,
         gravatarID: String?? = nil,
@@ -83,7 +83,7 @@ extension Owner {
     ) -> Owner {
         return Owner(
             login: login ?? self.login,
-            id: id ?? self.id,
+            id: id,
             nodeID: nodeID ?? self.nodeID,
             avatarURL: avatarURL ?? self.avatarURL,
             gravatarID: gravatarID ?? self.gravatarID,
@@ -104,7 +104,7 @@ extension Owner {
     }
 
     func jsonData() throws -> Data {
-        return try newJSONEncoder().encode(self)
+        return try JSONEncoder().encode(self)
     }
 
     func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
