@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ObjectMapper
 
 enum Status {
     case success
@@ -22,7 +23,7 @@ class HomeViewModel {
     
     fileprivate(set) var publicRepos = GithubRepos()
     
-    fileprivate(set) var repositoriesList = [GithubRepoElement]()
+    fileprivate(set) var repositoriesList = GithubRepos()
     
     func fetchPublicRepos(page: Int) {
         NetworkManagerImp().sendRequest(apiMethod: .getPublicRepos, completion: { [weak self] result in
@@ -31,8 +32,14 @@ class HomeViewModel {
                 switch result {
                 case .success(let data):
                     do {
-                        let response = try GithubRepos(data: data)
-                        strongSelf.publicRepos = response
+                        let responseJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! NSArray
+                        print(responseJSON)
+                        guard let repositories = Mapper<GithubRepoElement>().mapArray(JSONObject: responseJSON) else {
+                            print("*********** Repositories Data Not Found! ***********")
+                            break
+                        }
+                        print(repositories.count)
+                        strongSelf.publicRepos = repositories
                         strongSelf.delegate?.didFetchPublicRepos(withStatus: .success)
                     } catch {
                         strongSelf.delegate?.didFetchPublicRepos(withStatus: .failure(error: error.localizedDescription))
@@ -53,8 +60,13 @@ class HomeViewModel {
                         switch result {
                         case .success(let data):
                             do {
-                                let response = try GithubRepoElement(data: data)
-                                strongSelf.repositoriesList.append(response)
+                                let responseJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! NSDictionary
+                                print(responseJSON)
+                                guard let repository = Mapper<GithubRepoElement>().map(JSONObject: responseJSON) else {
+                                    print("*********** Repository Data Not Found! ***********")
+                                    break
+                                }
+                                strongSelf.repositoriesList.append(repository)
                                 strongSelf.delegate?.didUpdateReposList(withStatus: .success)
                             } catch {
                                 strongSelf.delegate?.didFetchPublicRepos(withStatus: .failure(error: error.localizedDescription))

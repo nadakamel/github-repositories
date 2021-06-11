@@ -6,6 +6,7 @@ target 'GithubRepoList' do
   use_frameworks!
 
   # Pods for GithubRepoList
+  pod 'ObjectMapper'
   pod 'RealmSwift'
 
   target 'GithubRepoListTests' do
