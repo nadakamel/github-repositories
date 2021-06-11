@@ -20,6 +20,7 @@ class HomeViewController: UIViewController {
     var viewModel = HomeViewModel()
     
     var page: Int = 1
+    let limit: Int = 10
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -47,7 +48,13 @@ class HomeViewController: UIViewController {
         _view.reposTableView.dataSource = self
         
         viewModel.delegate = self
-        viewModel.fetchPublicRepos(page: page)
+        
+        let repos = RealmHelper.getRealmGithubRepos() ?? []
+        if (repos.isEmpty) {
+            viewModel.fetchPublicRepos()
+        } else {
+            viewModel.fetchPublicReposWithCreationDate(forPage: page, limit: limit)
+        }
     }
     
     
@@ -57,7 +64,7 @@ extension HomeViewController: HomeViewModelProtocol {
     func didFetchPublicRepos(withStatus status: Status) {
         switch status {
         case .success:
-            viewModel.fetchPublicReposWithCreationDate(forPage: page)
+            viewModel.fetchPublicReposWithCreationDate(forPage: page, limit: limit)
         case .failure(let errorMessage):
             self.showAlertView(withTitle: "Error", andMessage: errorMessage, shouldDismissView: false)
         }

@@ -29,11 +29,10 @@ extension Date {
         formatter.dateFormat = "yyyy"
         let year = formatter.string(from: myDate!)
         let yearDiff = Int(formatter.string(from: Date()))! - Int(year)!
-        print(yearDiff)
+        
         formatter.dateFormat = "MM"
         let month = formatter.string(from: myDate!)
         let monthDiff = Int(formatter.string(from: Date()))! - Int(month)!
-        print(monthDiff)
         
         if yearDiff > 1 {
             myDateString = "\(yearDiff) years ago"

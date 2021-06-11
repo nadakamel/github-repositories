@@ -30,8 +30,31 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         print("Row \(indexPath.row) selected!")
-//        router.navigate(to: .repositoryDetails, data: viewModel.repositoriesList[indexPath.row])
+        router.navigate(to: .repositoryDetails, data: viewModel.repositoriesList[indexPath.row])
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastElement = viewModel.repositoriesList.count - 1
+        if indexPath.row == lastElement {
+            if (RealmHelper.getRealmGithubRepos()?.count == viewModel.repositoriesList.count) {
+                _view.reposTableView.tableFooterView = nil
+                _view.reposTableView.reloadData()
+            } else {
+                page+=1
+                print("Page: \(page)")
+                addActivityIndicatorToLoadMore()
+                viewModel.fetchPublicReposWithCreationDate(forPage: page, limit: limit)
+            }
+        }
+    }
+    
+    private func addActivityIndicatorToLoadMore() {
+        let activityIndicatorView = UIActivityIndicatorView(style: .white)
+        activityIndicatorView.frame = CGRect(origin: .zero, size: CGSize(width: 40.0, height: 40.0))
+        activityIndicatorView.backgroundColor = .clear
+        activityIndicatorView.color = UIColor.black
+        activityIndicatorView.startAnimating()
+        _view.reposTableView.tableFooterView = activityIndicatorView
+    }
 }
 

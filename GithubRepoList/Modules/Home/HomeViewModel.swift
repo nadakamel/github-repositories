@@ -21,11 +21,9 @@ protocol HomeViewModelProtocol: AnyObject {
 class HomeViewModel {
     weak var delegate: HomeViewModelProtocol?
     
-    fileprivate(set) var publicRepos = GithubRepos()
-    
     fileprivate(set) var repositoriesList = GithubRepos()
     
-    func fetchPublicRepos(page: Int) {
+    func fetchPublicRepos() {
         NetworkManagerImp().sendRequest(apiMethod: .getPublicRepos, completion: { [weak self] result in
             guard let strongSelf = self else { return }
             DispatchQueue.main.async {
@@ -38,8 +36,9 @@ class HomeViewModel {
                             print("*********** Repositories Data Not Found! ***********")
                             break
                         }
-                        print(repositories.count)
-                        strongSelf.publicRepos = repositories
+                        // Save repos locally using realm
+                        RealmHelper.saveGithubReposToRealm(repos: repositories)
+                        // Notify view
                         strongSelf.delegate?.didFetchPublicRepos(withStatus: .success)
                     } catch {
                         strongSelf.delegate?.didFetchPublicRepos(withStatus: .failure(error: error.localizedDescription))
@@ -51,31 +50,38 @@ class HomeViewModel {
         })
     }
     
-    func fetchPublicReposWithCreationDate(forPage page: Int) {
-        for i in stride(from: 0, to: page*10, by: 1) {
-            if let repoName = publicRepos[i].fullName {
-                NetworkManagerImp().sendRequest(apiMethod: .getRepoDetails(repoFullname: repoName), completion: { [weak self] result in
-                    guard let strongSelf = self else { return }
-                    DispatchQueue.main.async {
-                        switch result {
-                        case .success(let data):
-                            do {
-                                let responseJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! NSDictionary
-                                print(responseJSON)
-                                guard let repository = Mapper<GithubRepoElement>().map(JSONObject: responseJSON) else {
-                                    print("*********** Repository Data Not Found! ***********")
-                                    break
+    func fetchPublicReposWithCreationDate(forPage page: Int, limit: Int) {
+        let publicRepos = RealmHelper.getRealmGithubRepos() ?? []
+        var startIndex = 0
+        if(page > 1) {
+            startIndex+=(page*limit)
+        }
+        if publicRepos.count > startIndex+limit {
+            for i in stride(from: startIndex, to: startIndex+limit, by: 1) {
+                if let repoName = publicRepos[i].fullName {
+                    NetworkManagerImp().sendRequest(apiMethod: .getRepoDetails(repoFullname: repoName), completion: { [weak self] result in
+                        guard let strongSelf = self else { return }
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let data):
+                                do {
+                                    let responseJSON = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as! NSDictionary
+                                    print(responseJSON)
+                                    guard let repository = Mapper<GithubRepoElement>().map(JSONObject: responseJSON) else {
+                                        print("*********** Repository Data Not Found! ***********")
+                                        break
+                                    }
+                                    strongSelf.repositoriesList.append(repository)
+                                    strongSelf.delegate?.didUpdateReposList(withStatus: .success)
+                                } catch {
+                                    strongSelf.delegate?.didFetchPublicRepos(withStatus: .failure(error: error.localizedDescription))
                                 }
-                                strongSelf.repositoriesList.append(repository)
-                                strongSelf.delegate?.didUpdateReposList(withStatus: .success)
-                            } catch {
+                            case .failure(let error):
                                 strongSelf.delegate?.didFetchPublicRepos(withStatus: .failure(error: error.localizedDescription))
                             }
-                        case .failure(let error):
-                            strongSelf.delegate?.didFetchPublicRepos(withStatus: .failure(error: error.localizedDescription))
                         }
-                    }
-                })
+                    })
+                }
             }
         }
     }

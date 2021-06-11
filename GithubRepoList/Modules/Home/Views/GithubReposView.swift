@@ -9,7 +9,7 @@ import UIKit
 
 class GithubReposView: UIView {
     
-    let reposTableView: UITableView = {
+    var reposTableView: UITableView = {
         let tableView = UITableView()
         tableView.estimatedRowHeight = 120
         tableView.rowHeight = UITableView.automaticDimension

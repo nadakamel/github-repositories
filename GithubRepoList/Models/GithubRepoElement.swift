@@ -99,6 +99,52 @@ final class GithubRepoElement: NSObject, Mappable {
         id = realm.id
         nodeID = realm.nodeID
         name = realm.name
+        fullName = realm.fullName
+        isPrivate = realm.isPrivate
+        let repoOwner = Owner()
+        repoOwner.initWithRealm(realm: realm.owner ?? OwnerRealm())
+        owner = repoOwner
+        htmlURL = realm.htmlURL
+        githubRepoDescription = realm.githubRepoDescription
+        isForked = realm.isForked
+        url = realm.url
+        forksURL = realm.forksURL
+        keysURL = realm.keysURL
+        collaboratorsURL = realm.collaboratorsURL
+        teamsURL = realm.teamsURL
+        hooksURL = realm.hooksURL
+        issueEventsURL = realm.issueEventsURL
+        eventsURL = realm.eventsURL
+        assigneesURL = realm.assigneesURL
+        branchesURL = realm.branchesURL
+        tagsURL = realm.tagsURL
+        blobsURL = realm.blobsURL
+        gitTagsURL = realm.gitTagsURL
+        gitRefsURL = realm.gitRefsURL
+        treesURL = realm.treesURL
+        statusesURL = realm.statusesURL
+        languagesURL = realm.languagesURL
+        stargazersURL = realm.stargazersURL
+        contributorsURL = realm.contributorsURL
+        subscribersURL = realm.subscribersURL
+        subscriptionURL = realm.subscriptionURL
+        commitsURL = realm.commitsURL
+        gitCommitsURL = realm.gitCommitsURL
+        commentsURL = realm.commentsURL
+        issueCommentURL = realm.issueCommentURL
+        contentsURL = realm.contentsURL
+        compareURL = realm.compareURL
+        mergesURL = realm.mergesURL
+        archiveURL = realm.archiveURL
+        downloadsURL = realm.downloadsURL
+        issuesURL = realm.issuesURL
+        pullsURL = realm.pullsURL
+        milestonesURL = realm.milestonesURL
+        notificationsURL = realm.notificationsURL
+        labelsURL = realm.labelsURL
+        releasesURL = realm.releasesURL
+        deploymentsURL = realm.deploymentsURL
+        createdAt = realm.createdAt
     }
 
 }

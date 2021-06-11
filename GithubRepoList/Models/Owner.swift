@@ -51,4 +51,25 @@ final class Owner: NSObject, Mappable {
         siteAdmin <- map["site_admin"]
     }
         
+    /// Realm
+    func initWithRealm(realm : OwnerRealm) {
+        login = realm.login
+        id = realm.id
+        nodeID = realm.nodeID
+        avatarURL = realm.avatarURL
+        gravatarID = realm.gravatarID
+        url = realm.url
+        htmlURL = realm.htmlURL
+        followersURL = realm.followersURL
+        followingURL = realm.followingURL
+        gistsURL = realm.gistsURL
+        starredURL = realm.starredURL
+        subscriptionsURL = realm.subscriptionsURL
+        organizationsURL = realm.organizationsURL
+        reposURL = realm.reposURL
+        eventsURL = realm.eventsURL
+        receivedEventsURL = realm.receivedEventsURL
+        type = realm.type
+        siteAdmin = realm.siteAdmin
+    }
 }

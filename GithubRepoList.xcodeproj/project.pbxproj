@@ -26,6 +26,7 @@
 		89535FE32673A47D0055C15F /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89535FE22673A47D0055C15F /* RealmManager.swift */; };
 		89535FE52673A4C90055C15F /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89535FE42673A4C90055C15F /* RealmHelper.swift */; };
 		89535FE72673A6180055C15F /* GithubRepoElementRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89535FE62673A6180055C15F /* GithubRepoElementRealm.swift */; };
+		89535FEB267420E50055C15F /* OwnerRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89535FEA267420E50055C15F /* OwnerRealm.swift */; };
 		8954F1042672585100B2DB38 /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8954F1032672585100B2DB38 /* JSONParameterEncoder.swift */; };
 		8954F1062672587900B2DB38 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8954F1052672587900B2DB38 /* ParameterEncoding.swift */; };
 		8954F1082672588C00B2DB38 /* URLParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8954F1072672588C00B2DB38 /* URLParameterEncoding.swift */; };
@@ -93,6 +94,7 @@
 		89535FE22673A47D0055C15F /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		89535FE42673A4C90055C15F /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		89535FE62673A6180055C15F /* GithubRepoElementRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepoElementRealm.swift; sourceTree = "<group>"; };
+		89535FEA267420E50055C15F /* OwnerRealm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OwnerRealm.swift; sourceTree = "<group>"; };
 		8954F1032672585100B2DB38 /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
 		8954F1052672587900B2DB38 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
 		8954F1072672588C00B2DB38 /* URLParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoding.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				89068B07266F816A00782B0F /* GithubRepoElement.swift */,
 				89535FE62673A6180055C15F /* GithubRepoElementRealm.swift */,
 				89068B09266F819F00782B0F /* Owner.swift */,
+				89535FEA267420E50055C15F /* OwnerRealm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 				8954F1222672729200B2DB38 /* ReposTableView.swift in Sources */,
 				89068B0A266F819F00782B0F /* Owner.swift in Sources */,
 				8954F10D267259C500B2DB38 /* NetworkManager.swift in Sources */,
+				89535FEB267420E50055C15F /* OwnerRealm.swift in Sources */,
 				8954F120267267D900B2DB38 /* HomeViewModel.swift in Sources */,
 				89068B1D266F962E00782B0F /* RepositoryDetailsViewController.swift in Sources */,
 				8954F11426725A5300B2DB38 /* HTTPTask.swift in Sources */,
