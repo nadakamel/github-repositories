@@ -9,6 +9,7 @@ import Foundation
 
 enum NetworkAPI {
     case getPublicRepos
+    case getRepoDetails(repoFullname: String)
 }
 
 extension NetworkAPI: EndpointType {
@@ -23,12 +24,17 @@ extension NetworkAPI: EndpointType {
     }
     
     var path: String {
-        return "/repositories"
+        switch self {
+        case .getPublicRepos:
+            return "/repositories"
+        case .getRepoDetails(let repoFullname):
+            return "/repos/\(repoFullname)"
+        }
     }
     
     var httpMethod: HTTPMethod {
         switch self {
-        case .getPublicRepos:
+        case .getPublicRepos, .getRepoDetails:
             return .get
         }
     }

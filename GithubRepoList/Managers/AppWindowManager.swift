@@ -10,11 +10,11 @@ import UIKit
 enum AppWindowManager {
     static func setupWindow() {
         let window = self.window ?? UIWindow.init(frame: windowFrame)
+        self.window = window
+        window.makeKeyAndVisible()
         let controller = HomeViewController()
         let navigationController = UINavigationController(rootViewController: controller)
         window.rootViewController = navigationController
-        self.window = window
-        window.makeKeyAndVisible()
     }
 }
 

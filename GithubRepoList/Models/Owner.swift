@@ -7,6 +7,12 @@
 
 import Foundation
 
+// MARK: - TypeEnum
+enum TypeEnum: String, Codable {
+    case organization = "Organization"
+    case user = "User"
+}
+
 // MARK: - Owner
 struct Owner: Codable {
     let login: String?
@@ -59,48 +65,6 @@ extension Owner {
 
     init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
-    }
-
-    func with(
-        login: String?? = nil,
-        id: Int,
-        nodeID: String?? = nil,
-        avatarURL: String?? = nil,
-        gravatarID: String?? = nil,
-        url: String?? = nil,
-        htmlURL: String?? = nil,
-        followersURL: String?? = nil,
-        followingURL: String?? = nil,
-        gistsURL: String?? = nil,
-        starredURL: String?? = nil,
-        subscriptionsURL: String?? = nil,
-        organizationsURL: String?? = nil,
-        reposURL: String?? = nil,
-        eventsURL: String?? = nil,
-        receivedEventsURL: String?? = nil,
-        type: TypeEnum?? = nil,
-        siteAdmin: Bool?? = nil
-    ) -> Owner {
-        return Owner(
-            login: login ?? self.login,
-            id: id,
-            nodeID: nodeID ?? self.nodeID,
-            avatarURL: avatarURL ?? self.avatarURL,
-            gravatarID: gravatarID ?? self.gravatarID,
-            url: url ?? self.url,
-            htmlURL: htmlURL ?? self.htmlURL,
-            followersURL: followersURL ?? self.followersURL,
-            followingURL: followingURL ?? self.followingURL,
-            gistsURL: gistsURL ?? self.gistsURL,
-            starredURL: starredURL ?? self.starredURL,
-            subscriptionsURL: subscriptionsURL ?? self.subscriptionsURL,
-            organizationsURL: organizationsURL ?? self.organizationsURL,
-            reposURL: reposURL ?? self.reposURL,
-            eventsURL: eventsURL ?? self.eventsURL,
-            receivedEventsURL: receivedEventsURL ?? self.receivedEventsURL,
-            type: type ?? self.type,
-            siteAdmin: siteAdmin ?? self.siteAdmin
-        )
     }
 
     func jsonData() throws -> Data {

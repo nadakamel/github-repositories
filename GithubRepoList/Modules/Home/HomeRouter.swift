@@ -13,7 +13,7 @@ protocol HomeRouter {
     var viewController: HomeViewController! { get }
     init(viewController: HomeViewController)
     
-    func navigate(to route: Route)
+    func navigate(to route: Route, data: GithubRepoElement)
 }
 
 class DefaultHomeRouter: HomeRouter {
@@ -24,10 +24,10 @@ class DefaultHomeRouter: HomeRouter {
         self.viewController = viewController
     }
     
-    func navigate(to route: Route) {
+    func navigate(to route: Route, data: GithubRepoElement) {
         switch route {
         case .repositoryDetails:
-            passDataToRepositoryDetails(route)
+            passDataToRepositoryDetails(route, data: data)
         }
     }
     
@@ -35,8 +35,8 @@ class DefaultHomeRouter: HomeRouter {
 
 // MARK: - Extension for passing data logic
 extension DefaultHomeRouter {
-    private func passDataToRepositoryDetails(_ route: Route) {
-        let repoDetailsVC = RepositoryDetailsViewController()
+    private func passDataToRepositoryDetails(_ route: Route, data: GithubRepoElement) {
+        let repoDetailsVC = RepositoryDetailsViewController(with: data)
         viewController.navigationController?.pushViewController(repoDetailsVC, animated: true)
     }
 }

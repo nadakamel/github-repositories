@@ -23,5 +23,7 @@ private extension ThemeManager {
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().backgroundColor = .clear
         UINavigationBar.appearance().tintColor = .black
+        let attributes = [NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Light", size: 22)!]
+        UINavigationBar.appearance().titleTextAttributes = attributes
     }
 }

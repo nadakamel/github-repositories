@@ -35,6 +35,7 @@ struct GithubRepoElement: Codable {
     let issuesURL, pullsURL, milestonesURL, notificationsURL: String?
     let labelsURL, releasesURL: String?
     let deploymentsURL: String?
+    let createdAt: String?
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -82,6 +83,7 @@ struct GithubRepoElement: Codable {
         case labelsURL = "labels_url"
         case releasesURL = "releases_url"
         case deploymentsURL = "deployments_url"
+        case createdAt = "created_at"
     }
 }
 
@@ -101,104 +103,6 @@ extension GithubRepoElement {
 
     init(fromURL url: URL) throws {
         try self.init(data: try Data(contentsOf: url))
-    }
-
-    func with(
-        id: Int,
-        nodeID: String?? = nil,
-        name: String?? = nil,
-        fullName: String?? = nil,
-        githubRepoPrivate: Bool?? = nil,
-        owner: Owner?? = nil,
-        htmlURL: String?? = nil,
-        githubRepoDescription: String?? = nil,
-        fork: Bool?? = nil,
-        url: String?? = nil,
-        forksURL: String?? = nil,
-        keysURL: String?? = nil,
-        collaboratorsURL: String?? = nil,
-        teamsURL: String?? = nil,
-        hooksURL: String?? = nil,
-        issueEventsURL: String?? = nil,
-        eventsURL: String?? = nil,
-        assigneesURL: String?? = nil,
-        branchesURL: String?? = nil,
-        tagsURL: String?? = nil,
-        blobsURL: String?? = nil,
-        gitTagsURL: String?? = nil,
-        gitRefsURL: String?? = nil,
-        treesURL: String?? = nil,
-        statusesURL: String?? = nil,
-        languagesURL: String?? = nil,
-        stargazersURL: String?? = nil,
-        contributorsURL: String?? = nil,
-        subscribersURL: String?? = nil,
-        subscriptionURL: String?? = nil,
-        commitsURL: String?? = nil,
-        gitCommitsURL: String?? = nil,
-        commentsURL: String?? = nil,
-        issueCommentURL: String?? = nil,
-        contentsURL: String?? = nil,
-        compareURL: String?? = nil,
-        mergesURL: String?? = nil,
-        archiveURL: String?? = nil,
-        downloadsURL: String?? = nil,
-        issuesURL: String?? = nil,
-        pullsURL: String?? = nil,
-        milestonesURL: String?? = nil,
-        notificationsURL: String?? = nil,
-        labelsURL: String?? = nil,
-        releasesURL: String?? = nil,
-        deploymentsURL: String?? = nil
-    ) -> GithubRepoElement {
-        return GithubRepoElement(
-            id: id,
-            nodeID: nodeID ?? self.nodeID,
-            name: name ?? self.name,
-            fullName: fullName ?? self.fullName,
-            githubRepoPrivate: githubRepoPrivate ?? self.githubRepoPrivate,
-            owner: owner ?? self.owner,
-            htmlURL: htmlURL ?? self.htmlURL,
-            githubRepoDescription: githubRepoDescription ?? self.githubRepoDescription,
-            fork: fork ?? self.fork,
-            url: url ?? self.url,
-            forksURL: forksURL ?? self.forksURL,
-            keysURL: keysURL ?? self.keysURL,
-            collaboratorsURL: collaboratorsURL ?? self.collaboratorsURL,
-            teamsURL: teamsURL ?? self.teamsURL,
-            hooksURL: hooksURL ?? self.hooksURL,
-            issueEventsURL: issueEventsURL ?? self.issueEventsURL,
-            eventsURL: eventsURL ?? self.eventsURL,
-            assigneesURL: assigneesURL ?? self.assigneesURL,
-            branchesURL: branchesURL ?? self.branchesURL,
-            tagsURL: tagsURL ?? self.tagsURL,
-            blobsURL: blobsURL ?? self.blobsURL,
-            gitTagsURL: gitTagsURL ?? self.gitTagsURL,
-            gitRefsURL: gitRefsURL ?? self.gitRefsURL,
-            treesURL: treesURL ?? self.treesURL,
-            statusesURL: statusesURL ?? self.statusesURL,
-            languagesURL: languagesURL ?? self.languagesURL,
-            stargazersURL: stargazersURL ?? self.stargazersURL,
-            contributorsURL: contributorsURL ?? self.contributorsURL,
-            subscribersURL: subscribersURL ?? self.subscribersURL,
-            subscriptionURL: subscriptionURL ?? self.subscriptionURL,
-            commitsURL: commitsURL ?? self.commitsURL,
-            gitCommitsURL: gitCommitsURL ?? self.gitCommitsURL,
-            commentsURL: commentsURL ?? self.commentsURL,
-            issueCommentURL: issueCommentURL ?? self.issueCommentURL,
-            contentsURL: contentsURL ?? self.contentsURL,
-            compareURL: compareURL ?? self.compareURL,
-            mergesURL: mergesURL ?? self.mergesURL,
-            archiveURL: archiveURL ?? self.archiveURL,
-            downloadsURL: downloadsURL ?? self.downloadsURL,
-            issuesURL: issuesURL ?? self.issuesURL,
-            pullsURL: pullsURL ?? self.pullsURL,
-            milestonesURL: milestonesURL ?? self.milestonesURL,
-            notificationsURL: notificationsURL ?? self.notificationsURL,
-            labelsURL: labelsURL ?? self.labelsURL,
-            releasesURL: releasesURL ?? self.releasesURL,
-            deploymentsURL: deploymentsURL ?? self.deploymentsURL
-        )
     }
 
     func jsonData() throws -> Data {
