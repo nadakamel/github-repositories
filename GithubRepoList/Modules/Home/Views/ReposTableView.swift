@@ -14,12 +14,19 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering {
+            return filteredRepositories.count
+        }
         return viewModel.repositoriesList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ReposTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-        cell.configure(with: viewModel.repositoriesList[indexPath.row])
+        var repo = viewModel.repositoriesList[indexPath.row]
+        if isFiltering {
+            repo = filteredRepositories[indexPath.row]
+        }
+        cell.configure(with: repo)
         return cell
     }
     
@@ -29,7 +36,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        router.navigate(to: .repositoryDetails, data: viewModel.repositoriesList[indexPath.row])
+        var repo = viewModel.repositoriesList[indexPath.row]
+        if isFiltering {
+            repo = filteredRepositories[indexPath.row]
+        }
+        router.navigate(to: .repositoryDetails, data: repo)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

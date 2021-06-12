@@ -22,6 +22,16 @@ class HomeViewController: UIViewController {
     var page: Int = 1
     let limit: Int = 10
     
+    let searchController = UISearchController(searchResultsController: nil)
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    var filteredRepositories: GithubRepos = []
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -39,11 +49,21 @@ class HomeViewController: UIViewController {
         view = _view
     }
 
+    fileprivate func configureSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search by name"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Github Repositories"
         router = DefaultHomeRouter(viewController: self)
         view.backgroundColor = UIColor.white
+        
+        configureSearchController()
         
         _view.reposTableView.delegate = self
         _view.reposTableView.dataSource = self
@@ -58,6 +78,13 @@ class HomeViewController: UIViewController {
         }
     }
     
+    fileprivate func filterContentForSearchText(_ searchText: String, category: GithubRepoElement? = nil) {
+        filteredRepositories = viewModel.repositoriesList.filter { (repo: GithubRepoElement) -> Bool in
+            return repo.fullName?.lowercased().contains(searchText.lowercased()) ?? false
+        }
+        _view.reposTableView.reloadData()
+    }
+
     
 }
 
@@ -83,5 +110,12 @@ extension HomeViewController: HomeViewModelProtocol {
         }
         _view.reposTableView.tableFooterView = nil
         _view.reposTableView.reloadData()
+    }
+}
+
+extension HomeViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
     }
 }
