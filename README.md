@@ -32,4 +32,7 @@ Model-View-ViewModel (MVVM) architecture + Routers
 <img src="https://github.com/nadakamel/github-repositories/blob/main/Screenshots/HomeScreen.png" width="300" height="534"> <img src="https://github.com/nadakamel/github-repositories/blob/main/Screenshots/RepoDetailsScreen.png" width="300" height="534"> 
 
 Search for public repositories by repository name..
+
 <img src="https://github.com/nadakamel/github-repositories/blob/main/Screenshots/HomeSearchScreen.png" width="300" height="534">
+
+
