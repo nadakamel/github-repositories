@@ -39,3 +39,7 @@ Open  ```GithubRepoList.xcworkspace``` and run the project.
 ## Architecture
 
 Model-View-ViewModel (MVVM) architecture + Routers
+
+## Screenshots
+<img src="https://github.com/nadakamel/github-repositories/tree/main/Screenshots/HomeScreen.png" width="300" height="534"> <img src="https://github.com/nadakamel/github-repositories/blob/main/Screenshots/RepoDetailsScreen.png" width="300" height="534"> 
+
