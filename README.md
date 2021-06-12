@@ -17,6 +17,10 @@ Using this [Endpoint](https://api.github.com/repositories) to retrieve public Gi
    - Number of tags
    - Number of contributors (showing their name and avatar)
 
+## Base Tooling
+- `ObjectMapper` to convert the model class objects to and from JSON.
+- `Realm` for data offline caching (needed for pagination).
+
 ## Getting Started
 
 ### Prerequisites
