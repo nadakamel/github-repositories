@@ -36,6 +36,9 @@ final class GithubRepoElement: NSObject, Mappable {
     var labelsURL, releasesURL: String?
     var deploymentsURL: String?
     var createdAt: String?
+    var watchersCount, stargazersCount, forksCount: Int?
+    var openIssuesCount: Int?
+    var defaultBranch: String?
     
     override init() {
     }
@@ -92,6 +95,11 @@ final class GithubRepoElement: NSObject, Mappable {
         releasesURL <- map["releases_url"]
         deploymentsURL <- map["deployments_url"]
         createdAt <- map["created_at"]
+        watchersCount <- map["watchers_count"]
+        stargazersCount <- map["stargazers_count"]
+        forksCount <- map["forks_count"]
+        openIssuesCount <- map["open_issues_count"]
+        defaultBranch <- map["default_branch"]
     }
     
     /// Realm
@@ -145,6 +153,11 @@ final class GithubRepoElement: NSObject, Mappable {
         releasesURL = realm.releasesURL
         deploymentsURL = realm.deploymentsURL
         createdAt = realm.createdAt
+        watchersCount = realm.watchersCount
+        stargazersCount = realm.stargazersCount
+        forksCount = realm.forksCount
+        openIssuesCount = realm.openIssuesCount
+        defaultBranch = realm.defaultBranch
     }
 
 }

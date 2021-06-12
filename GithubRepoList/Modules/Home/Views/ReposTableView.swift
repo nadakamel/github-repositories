@@ -35,15 +35,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let lastElement = viewModel.repositoriesList.count - 1
         if indexPath.row == lastElement {
-            if (RealmHelper.getRealmGithubRepos()?.count == viewModel.repositoriesList.count) {
-                _view.reposTableView.tableFooterView = nil
-                _view.reposTableView.reloadData()
-            } else {
-                page+=1
-                print("Page: \(page)")
-                addActivityIndicatorToLoadMore()
-                viewModel.fetchPublicReposWithCreationDate(forPage: page, limit: limit)
-            }
+            page+=1
+            print("Page: \(page)")
+            addActivityIndicatorToLoadMore()
+            viewModel.fetchPublicReposWithCreationDate(forPage: page, limit: limit)
         }
     }
     

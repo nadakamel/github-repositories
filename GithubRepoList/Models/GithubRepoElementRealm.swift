@@ -34,7 +34,7 @@ class GithubRepoElementRealm: Object {
     @objc dynamic var blobsURL = ""
     @objc dynamic var gitTagsURL = ""
     @objc dynamic var gitRefsURL = ""
-    @objc dynamic var treesURL: String?
+    @objc dynamic var treesURL = ""
     @objc dynamic var statusesURL = ""
     @objc dynamic var languagesURL = ""
     @objc dynamic var stargazersURL = ""
@@ -58,7 +58,11 @@ class GithubRepoElementRealm: Object {
     @objc dynamic var releasesURL = ""
     @objc dynamic var deploymentsURL = ""
     @objc dynamic var createdAt = ""
-    
+    @objc dynamic var watchersCount = 0
+    @objc dynamic var stargazersCount = 0
+    @objc dynamic var forksCount = 0
+    @objc dynamic var openIssuesCount = 0
+    @objc dynamic var defaultBranch = ""
     
     func create(_ repo: GithubRepoElement) {
         id = repo.id
@@ -110,6 +114,11 @@ class GithubRepoElementRealm: Object {
         releasesURL = repo.releasesURL ?? ""
         deploymentsURL = repo.deploymentsURL ?? ""
         createdAt = repo.createdAt ?? ""
+        watchersCount = repo.watchersCount ?? 0
+        stargazersCount = repo.stargazersCount ?? 0
+        forksCount = repo.forksCount ?? 0
+        openIssuesCount = repo.openIssuesCount ?? 0
+        defaultBranch = repo.defaultBranch ?? ""
     }
 
 }
