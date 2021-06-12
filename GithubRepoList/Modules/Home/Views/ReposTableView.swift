@@ -29,7 +29,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("Row \(indexPath.row) selected!")
         router.navigate(to: .repositoryDetails, data: viewModel.repositoriesList[indexPath.row])
     }
     

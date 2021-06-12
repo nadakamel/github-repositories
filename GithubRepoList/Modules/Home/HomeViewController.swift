@@ -42,6 +42,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Github Repositories"
+        router = DefaultHomeRouter(viewController: self)
         view.backgroundColor = UIColor.white
         
         _view.reposTableView.delegate = self
@@ -80,6 +81,7 @@ extension HomeViewController: HomeViewModelProtocol {
             _view.reposTableView.backgroundView = _view.emptyTableViewLabel
             self.showAlertView(withTitle: "Error", andMessage: errorMessage, shouldDismissView: false)
         }
+        _view.reposTableView.tableFooterView = nil
         _view.reposTableView.reloadData()
     }
 }
